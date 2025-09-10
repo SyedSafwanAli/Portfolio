@@ -602,7 +602,7 @@
         color: #aaa;
         font-size: 1rem;
         line-height: 1.6;
-        margin-bottom: 50px;
+        margin-bottom: 0px;
         max-width: 520px;
     }
 
@@ -1523,178 +1523,197 @@
 
 
     /********************************************* Plans Section Css **********************************************/
-
-    .plans-section {
-        max-width: 1340px;
-        width: 90%;
-        margin: 0 auto;
-        padding: 60px 20px;
-        position: relative;
-    }
-
-    /* Wrapper */
-    .plans-wrapper {
-        display: flex;
-        gap: 30px;
-        justify-content: center;
-        align-items: flex-start;
-        flex-wrap: wrap;
-        max-width: 1100px;
-        margin: auto;
-    }
-
-    /* Card */
-    .plan-card {
-        background-color: #1F1F1F;
-        border: 1px solid #404040;
-        border-radius: 12px;
-        padding: 10px;
-        width: 320px;
-        color: white;
-    }
-
-    .plan-header-box {
-        background: black;
-        padding: 30px;
-        border-radius: 10px;
-    }
-
-    .plan-name {
-        font-size: 24px;
-        font-weight: 600;
-        color: white;
-    }
-
-    .plan-tagline {
-        font-size: 14px;
-        color: #888;
-        margin-bottom: 24px;
-    }
-
-    .plan-price {
-        font-size: 48px;
-        font-weight: 700;
-        color: #9acd32;
-        line-height: 1;
-    }
-
-    .plan-period {
-        font-size: 16px;
-        color: #888;
-        font-weight: 400;
-    }
-
-    .plan-desc {
-        color: #888;
-        font-size: 14px;
-        line-height: 1.5;
-        margin-bottom: 32px;
-        padding: 10px;
-    }
-
-    /* Features */
-    .plan-features {
-        list-style: none;
-        margin-bottom: 32px;
-        margin-left: -10px;
-    }
-
-    .plan-feature {
-        display: flex;
-        margin-bottom: 16px;
-        font-size: 16px;
-    }
-
-    .plan-feature.active {
-        color: white;
-    }
-
-    .plan-feature.inactive {
-        color: #555;
-    }
-
-    .tick {
-        width: 20px;
-        height: 20px;
-        margin-right: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .tick.active::before {
-        content: "✓";
-        color: #9acd32;
-        font-weight: bold;
-        font-size: 16px;
-    }
-
-    .tick.inactive::before {
-        content: "✓";
-        color: #555;
-        font-weight: bold;
-        font-size: 16px;
-    }
-
-    /* Button */
-    .plan-btn {
-        width: 100%;
-        background-color: #9acd32;
-        color: #2d2d2d;
-        border: none;
-        padding: 16px 24px;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    .plan-btn:hover {
-        background-color: #b8e856;
-        transform: translateY(-1px);
-    }
-
-    .plan-btn::after {
-        content: "›";
-        font-size: 18px;
-        font-weight: bold;
-    }
-  @media (max-width: 1024px) {
-    .plan-card {
-        background-color: #1F1F1F;
-        border: 1px solid #404040;
-        border-radius: 12px;
-        padding: 10px;
-        width: 250px;
-        color: white;
-    }
-    .plan-header-box {
-    background: black;
-    padding: 20px;
-    border-radius: 10px;
+.plans-section {
+    max-width: 1340px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 60px 20px;
+    position: relative;
 }
-.plan-price{
-    font-size: 30px;
+
+/* Swiper */
+.plans-slider {
+    padding: 40px 0;
 }
-.plan-feature{
-    margin-left: -25px;
+.plans-slider .swiper-slide {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+/* Card */
+.plan-card {
+    background-color: #1F1F1F;
+    border: 1px solid #404040;
+    border-radius: 12px;
+    padding: 10px;
+    width: 350px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+}
+.plan-card:hover {
+    transform: translateY(-5px);
+}
+
+.plan-header-box {
+  background: black;
+  padding: 30px;
+  border-radius: 10px;
+  min-height: 180px; /* sab header equal */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.plan-name {
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+}
+.plan-tagline {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 24px;
+}
+.plan-price {
+    font-size: 36px;
+    font-weight: 700;
+    color: #9acd32;
+    line-height: 1;
+}
+.plan-period {
+    font-size: 14px;
+    color: #888;
+}
+
+/* Features */
+.plan-desc {
+    color: #888;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 32px;
+    padding: 10px;
+}
+.plan-features {
+    list-style: none;
+    margin-bottom: 32px;
+}
+.plan-feature {
+    display: flex;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+.plan-feature.active { color: white; }
+.plan-feature.inactive { color: #555; }
+
+.tick {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tick.active::before {
+    content: "✓";
+    color: #9acd32;
+    font-weight: bold;
+}
+.tick.inactive::before {
+    content: "✓";
+    color: #555;
+    font-weight: bold;
+}
+
+/* Button */
+.plan-btn {
+    width: 100%;
+    background-color: #9acd32;
+    color: #2d2d2d;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.plan-btn:hover {
+    background-color: #b8e856;
+    transform: translateY(-1px);
+}
+.plan-btn::after {
+    content: "›";
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Swiper Controls */
+.swiper-button-prev,
+.swiper-button-next {
+    color: #9acd32;
+    transition: 0.3s ease;
+}
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    color: #b8e856;
+}
+.swiper-pagination-bullet {
+    background: #555;
+}
+.swiper-pagination-bullet-active {
+    background: #9acd32;
+}
+/* Swiper Controls - Remove Arrows */
+.swiper-button-prev,
+.swiper-button-next {
+    display: none !important;
+}
+
+/* Pagination Styling */
+.swiper-pagination {
+  position: relative !important; /* 👈 force relative */
+  margin-top: 50px; /* 👈 increase spacing to push below cards */
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+
+.swiper-pagination-bullet {
+  width: 30px;
+  height: 6px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #d8d0d0, #e1f0d8) !important;
+  opacity: 1;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.swiper-pagination-bullet-active {
+  background:  #A6CF18 !important;
+  box-shadow: 0 0 8px rgba(154, 205, 50, 0.6);
+  transform: scale(1.1);
+}
+
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .plan-card { width: 250px; }
+    .plan-header-box { padding: 20px; }
+    .plan-price { font-size: 28px; }
 }
 @media (max-width: 768px) {
-    .plan-card{
-        width: 280px;
-    }
+    .plan-card { width: 280px; }
 }
 @media (max-width: 425px) {
-    .plan-card{
-        width: 80%;
-    }
+    .plan-card { width: 85%; }
 }
+
     /******************************************* Portfolio Section *********************************/
 
   /* Container */
@@ -1845,7 +1864,7 @@
 
 /************************************************* contact section *************************************************/
         .contact-section {
-            background-color: #131313;
+            background-color: #080808;
             padding: 80px 140px 120px 140px;
             position: relative;
             display: flex;
