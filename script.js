@@ -209,3 +209,85 @@ document.querySelectorAll('.skill-card').forEach(card => {
         progressBar.style.transform = 'scaleY(1)';
     });
 });
+
+
+
+
+
+
+//=============================
+// popup function
+//==========================
+// Open specific modal
+function openModal(modalId) {
+  const modal = document.getElementById(modalId);
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+// Close specific modal
+function closeModal(event, modalId) {
+  if (event && event.target !== document.getElementById(modalId) && !event.target.classList.contains('close-btn')) {
+    return;
+  }
+  const modal = document.getElementById(modalId);
+  modal.classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+// Escape key to close all modals
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+    document.body.style.overflow = 'auto';
+  }
+});
+
+// Handle multiple forms
+function handleForm(formId, successId) {
+  const form = document.getElementById(formId);
+  const successMessage = document.getElementById(successId);
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const submitBtn = form.querySelector('.submit-btn');
+    const originalHTML = submitBtn.innerHTML;
+
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Sending...</span>';
+    submitBtn.disabled = true;
+
+    setTimeout(() => {
+      successMessage.style.display = 'block';
+      form.reset();
+      submitBtn.innerHTML = originalHTML;
+      submitBtn.disabled = false;
+
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+        closeModal(null, formId.replace("Form", "Modal"));
+      }, 3000);
+    }, 2000);
+  });
+}
+
+// Init forms
+handleForm('appointmentForm', 'appointmentSuccess');
+handleForm('quoteForm', 'quoteSuccess');
+
+// Phone formatting (for each contact input)
+function formatPhone(inputId) {
+  const phoneInput = document.getElementById(inputId);
+  phoneInput.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length >= 6) {
+      value = value.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+    } else if (value.length >= 3) {
+      value = value.replace(/(\d{3})(\d+)/, '($1) $2');
+    }
+    e.target.value = value;
+  });
+}
+
+formatPhone('appointmentContact');
+formatPhone('quoteContact');
