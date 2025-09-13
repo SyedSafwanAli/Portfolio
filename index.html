@@ -400,7 +400,7 @@
   </section>
 
   <!-------------------------------------------- Package Secton ------------------------------------------->
-  <section class="plans-section" style="display: none;">
+  <section class="plans-section">
     <div class="section-label center">
       <i class="fa-solid fa-asterisk"></i> WEBSITE PACKAGES
     </div>
@@ -605,32 +605,97 @@
     </div>
 
     <div class="form-container" >
-      <form action="https://formspree.io/f/yourFormID" method="POST">
-        <div class="form-group">
-          <input type="email" id="email" name="email" placeholder="Email Address" required>
-          <label for="email">Email Address</label>
-          <span class="form-icon"><i class="far fa-envelope"></i></span>
-        </div>
+<form action="https://formspree.io/f/mqadjqqn" method="POST" id="contactForm" novalidate>
+  <div class="form-group">
+    <input type="email" id="email" name="email" placeholder="Email Address" required>
+    <label for="email">Email Address</label>
+    <span class="form-icon"><i class="far fa-envelope"></i></span>
+    <div class="error" id="emailError"></div>
+  </div>
 
-        <div class="form-group">
-          <input type="text" id="name" name="name" placeholder="Your Name" required>
-          <label for="name">Your Name</label>
-          <span class="form-icon"><i class="far fa-user"></i></span>
-        </div>
+  <div class="form-group">
+    <input type="text" id="name" name="name" placeholder="Your Name" required>
+    <label for="name">Your Name</label>
+    <span class="form-icon"><i class="far fa-user"></i></span>
+    <div class="error" id="nameError"></div>
+  </div>
 
-        <div class="form-group">
-          <input type="tel" id="contact" name="contact" placeholder="Your Contact" required>
-          <label for="contact">Your Contact</label>
-          <span class="form-icon"><i class="fas fa-phone"></i></span>
-        </div>
+  <div class="form-group">
+    <input type="tel" id="contact" name="contact" placeholder="Your Contact" required>
+    <label for="contact">Your Contact</label>
+    <span class="form-icon"><i class="fas fa-phone"></i></span>
+    <div class="error" id="contactError"></div>
+  </div>
 
-        <div class="form-group message-group">
-          <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-          <label for="message">Your Message</label>
-        </div>
+  <div class="form-group message-group">
+    <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+    <label for="message">Your Message</label>
+    <div class="error" id="messageError"></div>
+  </div>
 
-        <button type="submit" class="submit-btn">Send</button>
-      </form>
+  <button type="submit" class="submit-btn">Send</button>
+</form>
+
+<script>
+  const form = document.getElementById("contactForm");
+
+  form.addEventListener("submit", function (e) {
+    let valid = true;
+
+    // email
+    const email = document.getElementById("email");
+    const emailError = document.getElementById("emailError");
+    if (!email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      emailError.textContent = "Please enter a valid email address.";
+      valid = false;
+    } else {
+      emailError.textContent = "";
+    }
+
+    // name
+    const name = document.getElementById("name");
+    const nameError = document.getElementById("nameError");
+    if (name.value.trim().length < 3) {
+      nameError.textContent = "Name must be at least 3 characters.";
+      valid = false;
+    } else {
+      nameError.textContent = "";
+    }
+
+    // contact
+    const contact = document.getElementById("contact");
+    const contactError = document.getElementById("contactError");
+    if (!contact.value.match(/^[0-9]{10}$/)) {
+      contactError.textContent = "Enter a valid 10-digit number.";
+      valid = false;
+    } else {
+      contactError.textContent = "";
+    }
+
+    // message
+    const message = document.getElementById("message");
+    const messageError = document.getElementById("messageError");
+    if (message.value.trim().length < 10) {
+      messageError.textContent = "Message must be at least 10 characters.";
+      valid = false;
+    } else {
+      messageError.textContent = "";
+    }
+
+    if (!valid) {
+      e.preventDefault(); // prevent form from submitting
+    }
+  });
+</script>
+
+<style>
+  .error {
+    color: red;
+    font-size: 13px;
+    margin-top: 3px;
+  }
+</style>
+
 
     </div>
 
