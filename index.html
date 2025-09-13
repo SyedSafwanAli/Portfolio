@@ -12,6 +12,25 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="header-footer.css">
+    <style>
+    .error { color: red; font-size: 13px; margin-top: 3px; }
+    #formResponse { margin-top: 15px; font-size: 14px; }
+    .form-group { margin-bottom: 15px; }
+    input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+    button { padding: 12px; width: 100%; border: none; border-radius: 5px; background: #007bff; color: white; font-size: 16px; cursor: pointer; }
+    button:disabled { background: transparent; cursor: not-allowed; }
+    .g-recaptcha {
+  transform: scale(0.9); /* shrink a little */
+  transform-origin: 0 0; /* align left */
+  margin: 15px 0;
+  filter: brightness(0.9) contrast(1.2); /* blend with dark theme */
+  border-radius: 8px;
+  padding: 5px;
+  background: #111; /* dark background */
+  display: inline-block;
+}
+
+  </style>
 </head>
 
 <body>
@@ -322,7 +341,7 @@
 
   <!-------------------------------------------- Skils Secton ------------------------------------------->
 
-  <section class="skill-section" >
+  <section class="skill-section">
     <!-- Image Section -->
     <div class="image-section">
       <div class="section-label"><i class="fa-solid fa-asterisk"></i> Professional Skill of Me</div>
@@ -604,100 +623,131 @@
       </div>
     </div>
 
-    <div class="form-container" >
-<form action="https://formspree.io/f/mqadjqqn" method="POST" id="contactForm" novalidate>
-  <div class="form-group">
-    <input type="email" id="email" name="email" placeholder="Email Address" required>
-    <label for="email">Email Address</label>
-    <span class="form-icon"><i class="far fa-envelope"></i></span>
-    <div class="error" id="emailError"></div>
+  <div class="form-container">
+    <form id="contactForm" novalidate>
+      <div class="form-group">
+        <input type="email" id="email" name="email" placeholder="Email Address" required>
+        <label for="email">Email Address</label>
+        <div class="error" id="emailError"></div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+        <label for="name">Your Name</label>
+        <div class="error" id="nameError"></div>
+      </div>
+
+      <div class="form-group">
+        <input type="tel" id="contact" name="contact" placeholder="Your Contact" required>
+        <label for="contact">Your Contact</label>
+        <div class="error" id="contactError"></div>
+      </div>
+
+      <div class="form-group message-group">
+        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+        <label for="message">Your Message</label>
+        <div class="error" id="messageError"></div>
+      </div>
+
+      <!-- reCAPTCHA -->
+      <div class="g-recaptcha" data-sitekey="6LeCZsgrAAAAAK4tihOdCG3dQnny7HKJ5clbhBc1"></div>
+      <div class="error" id="captchaError"></div>
+
+      <button type="submit" class="submit-btn">Send</button>
+    </form>
+
+    <!-- Success / Error message -->
+    <div id="formResponse"></div>
   </div>
 
-  <div class="form-group">
-    <input type="text" id="name" name="name" placeholder="Your Name" required>
-    <label for="name">Your Name</label>
-    <span class="form-icon"><i class="far fa-user"></i></span>
-    <div class="error" id="nameError"></div>
-  </div>
+  <script>
+    const form = document.getElementById("contactForm");
+    const responseBox = document.getElementById("formResponse");
 
-  <div class="form-group">
-    <input type="tel" id="contact" name="contact" placeholder="Your Contact" required>
-    <label for="contact">Your Contact</label>
-    <span class="form-icon"><i class="fas fa-phone"></i></span>
-    <div class="error" id="contactError"></div>
-  </div>
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-  <div class="form-group message-group">
-    <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-    <label for="message">Your Message</label>
-    <div class="error" id="messageError"></div>
-  </div>
+      let valid = true;
 
-  <button type="submit" class="submit-btn">Send</button>
-</form>
+      // Email validation
+      const email = document.getElementById("email");
+      const emailError = document.getElementById("emailError");
+      if (!email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        emailError.textContent = "Please enter a valid email address.";
+        valid = false;
+      } else {
+        emailError.textContent = "";
+      }
 
-<script>
-  const form = document.getElementById("contactForm");
+      // Name validation
+      const name = document.getElementById("name");
+      const nameError = document.getElementById("nameError");
+      if (name.value.trim().length < 3) {
+        nameError.textContent = "Name must be at least 3 characters.";
+        valid = false;
+      } else {
+        nameError.textContent = "";
+      }
 
-  form.addEventListener("submit", function (e) {
-    let valid = true;
+      // Contact validation
+      const contact = document.getElementById("contact");
+      const contactError = document.getElementById("contactError");
+      if (!contact.value.match(/^[0-9]{10}$/)) {
+        contactError.textContent = "Enter a valid 10-digit number.";
+        valid = false;
+      } else {
+        contactError.textContent = "";
+      }
 
-    // email
-    const email = document.getElementById("email");
-    const emailError = document.getElementById("emailError");
-    if (!email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      emailError.textContent = "Please enter a valid email address.";
-      valid = false;
-    } else {
-      emailError.textContent = "";
-    }
+      // Message validation
+      const message = document.getElementById("message");
+      const messageError = document.getElementById("messageError");
+      if (message.value.trim().length < 10) {
+        messageError.textContent = "Message must be at least 10 characters.";
+        valid = false;
+      } else {
+        messageError.textContent = "";
+      }
 
-    // name
-    const name = document.getElementById("name");
-    const nameError = document.getElementById("nameError");
-    if (name.value.trim().length < 3) {
-      nameError.textContent = "Name must be at least 3 characters.";
-      valid = false;
-    } else {
-      nameError.textContent = "";
-    }
+      // reCAPTCHA validation
+      const captchaError = document.getElementById("captchaError");
+      if (grecaptcha.getResponse().length === 0) {
+        captchaError.textContent = "Please verify that you're not a robot.";
+        valid = false;
+      } else {
+        captchaError.textContent = "";
+      }
 
-    // contact
-    const contact = document.getElementById("contact");
-    const contactError = document.getElementById("contactError");
-    if (!contact.value.match(/^[0-9]{10}$/)) {
-      contactError.textContent = "Enter a valid 10-digit number.";
-      valid = false;
-    } else {
-      contactError.textContent = "";
-    }
+      if (!valid) return;
 
-    // message
-    const message = document.getElementById("message");
-    const messageError = document.getElementById("messageError");
-    if (message.value.trim().length < 10) {
-      messageError.textContent = "Message must be at least 10 characters.";
-      valid = false;
-    } else {
-      messageError.textContent = "";
-    }
+      // Disable button while sending
+      const btn = form.querySelector("button");
+      btn.disabled = true;
+      btn.textContent = "Sending...";
 
-    if (!valid) {
-      e.preventDefault(); // prevent form from submitting
-    }
-  });
-</script>
+      try {
+        const res = await fetch("https://formspree.io/f/mqadjqqn", {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" }
+        });
 
-<style>
-  .error {
-    color: red;
-    font-size: 13px;
-    margin-top: 3px;
-  }
-</style>
+        if (res.ok) {
+          responseBox.innerHTML = `<p style="color:green;">✅ Message sent successfully!</p>`;
+          form.reset();
+          grecaptcha.reset();
+        } else {
+          responseBox.innerHTML = `<p style="color:red;">❌ Something went wrong. Try again later.</p>`;
+        }
+      } catch (err) {
+        responseBox.innerHTML = `<p style="color:red;">⚠️ Network error. Please try again.</p>`;
+      }
 
-
-    </div>
+      // Reset button
+      btn.disabled = false;
+      btn.textContent = "Send";
+    });
+  </script>
 
   </section>
   <!----------------------------------------------- Portfolio Section ------------------------------------------>
@@ -955,7 +1005,7 @@
 
   <script src="./script.js"></script>
   <script src="./gallery.js"></script>
-
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 
 </html>
